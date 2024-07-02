@@ -1,27 +1,20 @@
-# Reproduction
+# DESCRIPTION OF APP
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.6.
+there are 3 routes
+/tron contains lazy loaded component with WalletConnectAdapter from @tronweb3/tronwallet-adapters
+/ethers contains lazy loaded component with Web3Modal for handling evm connection
+/combined contains both components
 
-## Development server
+Reproduction scenarios (note that this is related to modules load order, so reproducing each scenario requires a reload)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. in one session modules loaded simultaneously (from /combined route)
+   in this case ethers module works fine, it seems it's defined in DOM first, but when trying to connect to via tron adapter, we get error
 
-## Code scaffolding
+```
+ERROR DOMException: CustomElementRegistry.define: 'w3m-button' has already been defined as a custom element
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+2. first loaded module is component handling ethers connection, then one that handles tron connection (going to /ethers route, then to /tron route)
+   in this case we get same Error when trying to connect via tron connector as in case (1)
+3. first loaded module is component handling tron connection, then one that handles ethers connection (going to /tron route, then to /ethers route)
+   in this case connection via tron works fine, but ethers's one stops working
