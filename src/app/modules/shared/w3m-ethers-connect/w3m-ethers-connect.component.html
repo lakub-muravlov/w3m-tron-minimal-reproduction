@@ -1,0 +1,9 @@
+<span>ETHERS CONNECTOR</span>
+
+@if(!address()) {
+<button (click)="connect()">Connect</button>
+} @else {
+<div>
+  <span>{{ address() }}</span>
+</div>
+}

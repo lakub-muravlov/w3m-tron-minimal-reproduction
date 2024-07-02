@@ -1,0 +1,10 @@
+<span> TRON CONNECTOR </span>
+@if(!address()) {
+<button (click)="connect()">Connect</button>
+} @else {
+<div>
+  <span>{{ address() }}</span>
+</div>
+} @if(error) {
+<span style="color: #f00">{{ error }}</span>
+}
