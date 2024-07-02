@@ -1,9 +1,9 @@
 # DESCRIPTION OF APP
 
-there are 3 routes
-/tron contains lazy loaded component with WalletConnectAdapter from @tronweb3/tronwallet-adapters
-/ethers contains lazy loaded component with Web3Modal for handling evm connection
-/combined contains both components
+there are 3 routes <br><br>
+/tron - contains lazy loaded component with WalletConnectAdapter from @tronweb3/tronwallet-adapters <br><br>
+/ethers - contains lazy loaded component with Web3Modal for handling evm connection <br><br>
+/combined - contains both components <br><br>
 
 Reproduction scenarios (note that this is related to modules load order, so reproducing each scenario requires a reload)
 
